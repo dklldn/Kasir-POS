@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // GANTI OWNER_UID_DARI_FIREBASE dengan UID akun Owner dari Authentication > Users.
+    // Jangan deploy sebelum placeholder diganti dengan UID yang sebenarnya.
+    function isApprovedOwner() {
+      return request.auth != null && request.auth.uid == 'OWNER_UID_DARI_FIREBASE';
+    }
+    match /pos_data/main_store {
+      allow read, write: if isApprovedOwner();
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

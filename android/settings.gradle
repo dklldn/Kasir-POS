@@ -1,0 +1,61 @@
+pluginManagement {
+    def flutterSdkPath = {
+        def properties = new Properties()
+        file("local.properties").withInputStream { properties.load(it) }
+        def flutterSdkPath = properties.getProperty("flutter.sdk")
+        assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
+        return flutterSdkPath
+    }()
+
+    includeBuild("${flutterSdkPath}/packages/flutter_tools/gradle")
+
+    repositories {
+        google()
+        // Alternate Maven Central endpoint. Some networks return HTTP 403
+        // for repo.maven.apache.org while repo1.maven.org is reachable.
+        maven { url = uri("https://repo1.maven.org/maven2/") }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+    id "com.android.application" version "8.12.1" apply false
+    id "org.jetbrains.kotlin.android" version "2.2.20" apply false
+    id "com.google.gms.google-services" version "4.4.2" apply false
+}
+
+// Make multiple Maven mirrors available to plugin buildscript classpaths
+// (notably network_info_plus). Some networks return HTTP 403 from Maven
+// Central endpoints, so keep several fallback repositories.
+gradle.beforeProject { project ->
+    project.buildscript.repositories { repos ->
+        repos.maven {
+            name = "AliyunPublic"
+            url = uri("https://maven.aliyun.com/repository/public")
+        }
+        repos.maven {
+            name = "HuaweiCloudPublic"
+            url = uri("https://repo.huaweicloud.com/repository/maven")
+        }
+        repos.maven {
+            name = "MavenCentralMirror"
+            url = uri("https://repo1.maven.org/maven2/")
+        }
+    }
+
+    // network_info_plus may request Kotlin Gradle Plugin 2.2.0 in its
+    // own buildscript. Align it with the project's Kotlin plugin version.
+    project.buildscript.configurations.configureEach { config ->
+        config.resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == "org.jetbrains.kotlin" &&
+                details.requested.name == "kotlin-gradle-plugin" &&
+                details.requested.version == "2.2.0") {
+                details.useVersion("2.2.20")
+            }
+        }
+    }
+}
+
+include ":app"
