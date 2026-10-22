@@ -1,6 +1,6 @@
-# Panglima Laut POS
+# Kasir POS
 
-Aplikasi kasir berbasis Flutter dan Firebase untuk mendukung operasional Rumah Makan Panglima Laut.
+Aplikasi kasir berbasis Flutter dan Firebase untuk mendukung operasional Rumah Makan dan Supermarket.
 
 ## Fitur Utama
 
