@@ -59,9 +59,6 @@ Dokumentasi terkait:
 - Pembukaan laci kasir mengikuti alur transaksi dan hak akses yang dikonfigurasi.
 - Cetak struk dan pembukaan laci perlu diuji pada perangkat Android serta printer yang digunakan.
 
-## Logo Struk
-
-Proyek menyediakan dukungan logo Rumah Makan Panglima Laut pada struk printer POS dan PDF sesuai implementasi yang tersedia.
 
 ## Persyaratan Pengembangan
 
@@ -86,10 +83,3 @@ Jika build gagal, periksa pesan error Flutter, konfigurasi Gradle, versi plugin,
 
 Konfigurasi proyek ini sebelumnya menggunakan Android Gradle Plugin 8.12.1 dan Gradle 8.14. Verifikasi konfigurasi aktual dan kompatibilitas dependensi jika memperbarui Flutter atau plugin Android.
 
-## Identitas Repositori
-
-Nama aplikasi dan dokumentasi proyek ini adalah **Panglima Laut POS**. Mengubah README tidak otomatis mengubah kepemilikan atau remote Git. Untuk memakai repositori GitHub milik sendiri, pastikan remote `origin` menunjuk ke repositori yang benar dan repositori tersebut sudah dibuat serta dapat diakses.
-
-
-## Sebelum Publikasi
-Baca `PUBLISH_CHECKLIST_ID.md`. ZIP ini adalah paket persiapan/review, bukan jaminan aplikasi telah lolos audit keamanan atau siap diunggah. Firestore Rules masih menolak akses sampai UID Owner diganti dan rules dipublikasikan. Rilis Android juga membutuhkan keystore pribadi.
